@@ -1,0 +1,123 @@
+<div class="card w-90 px-5 py-5">
+  <form #f="ngForm" (ngSubmit)="handleSubmitForm(f)">
+    <div class="form-group">
+      <label for="email">Email address</label>
+      <input
+        required
+        name="email"
+        ngModel
+        #email="ngModel"
+        type="email"
+        class="form-control"
+        id="email"
+        placeholder="Enter email"
+      />
+      <div
+        *ngIf="email.touched && email.errors"
+        class="text-danger alert alert-danger pt-2"
+      >
+        <div *ngIf="email.touched && email.errors && email.errors.required">
+          {{errorMessage.required('email')}}
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="firstName">First Name</label>
+      <input
+        required
+        minlength="3"
+        maxlength="15"
+        name="firstName"
+        ngModel
+        #firstName="ngModel"
+        type="text"
+        class="form-control"
+        id="firstName"
+        placeholder="Enter password"
+      />
+      <div
+        *ngIf="firstName.touched && firstName.errors"
+        class="text-danger alert alert-danger pt-2"
+      >
+        <div
+          *ngIf="
+            firstName.touched && firstName.errors && firstName.errors.required
+          "
+        >
+        {{errorMessage.required('First Name')}}
+        </div>
+        <div
+          *ngIf="
+            firstName.touched && firstName.errors && firstName.errors.minlength
+          "
+        >
+        {{errorMessage.minLength('First Name', firstName.errors.minlength.requiredLength)}}
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="lastName">Last Name</label>
+      <input
+        required
+        minlength="3"
+        maxlength="15"
+        name="lastName"
+        ngModel
+        #lastName="ngModel"
+        type="email"
+        class="form-control"
+        id="lastName"
+        placeholder="Enter password"
+      />
+      <div
+        *ngIf="lastName.touched && lastName.errors"
+        class="text-danger alert alert-danger pt-2"
+      >
+        <div
+          *ngIf="
+            lastName.touched && lastName.errors && lastName.errors.required
+          "
+        >
+        {{errorMessage.required('First Name')}}
+        </div>
+        <div
+          *ngIf="
+            lastName.touched && lastName.errors && lastName.errors.minlength
+          "
+        >
+        {{errorMessage.minLength('First Name', lastName.errors.minlength.requiredLength)}}
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input
+        required
+        minlength="3"
+        maxlength="15"
+        name="password"
+        ngModel
+        #password="ngModel"
+        type="password"
+        class="form-control"
+        id="password"
+        placeholder="Enter password"
+      />
+      <div class="alert alert-danger pt-2" *ngIf="password.errors && password.touched">
+        <div
+         *ngIf="password.errors.required"
+        >
+        {{errorMessage.required('password')}}
+        </div>
+        <div
+         *ngIf="password.errors.minlength"
+        >
+        {{errorMessage.minLength('password', password.errors.minlength.requiredLength)}}
+        </div>
+      </div>
+    </div>
+    <div class="form-group py-3">
+      <button class="btn btn-primary float-right">Submit</button>
+    </div>
+  </form>
+</div>

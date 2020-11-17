@@ -1,0 +1,8 @@
+@import '../../../variale.css';
+
+.header-container{
+    height: 50px;
+    background-color: var(--black-background);
+    background-color: black;
+    /* text-align: center; */
+}
