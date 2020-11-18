@@ -1,123 +1,131 @@
 <div class="card w-90 px-5 py-5">
-  <form #f="ngForm" (ngSubmit)="handleSubmitForm(f)">
+  <form [formGroup]="userProfile" (ngSubmit)="handleSubmitForm()">
     <div class="form-group">
       <label for="email">Email address</label>
       <input
-        required
-        name="email"
-        ngModel
-        #email="ngModel"
+        formControlName="email"
         type="email"
         class="form-control"
         id="email"
         placeholder="Enter email"
       />
-      <div
-        *ngIf="email.touched && email.errors"
-        class="text-danger alert alert-danger pt-2"
-      >
-        <div *ngIf="email.touched && email.errors && email.errors.required">
-          {{errorMessage.required('email')}}
-        </div>
-      </div>
     </div>
     <div class="form-group">
       <label for="firstName">First Name</label>
       <input
-        required
-        minlength="3"
-        maxlength="15"
-        name="firstName"
-        ngModel
-        #firstName="ngModel"
+        formControlName="firstName"
         type="text"
         class="form-control"
         id="firstName"
-        placeholder="Enter password"
+        placeholder="Enter first name"
       />
-      <div
-        *ngIf="firstName.touched && firstName.errors"
-        class="text-danger alert alert-danger pt-2"
-      >
-        <div
-          *ngIf="
-            firstName.touched && firstName.errors && firstName.errors.required
-          "
-        >
-        {{errorMessage.required('First Name')}}
-        </div>
-        <div
-          *ngIf="
-            firstName.touched && firstName.errors && firstName.errors.minlength
-          "
-        >
-        {{errorMessage.minLength('First Name', firstName.errors.minlength.requiredLength)}}
-        </div>
-      </div>
     </div>
     <div class="form-group">
       <label for="lastName">Last Name</label>
       <input
-        required
-        minlength="3"
-        maxlength="15"
-        name="lastName"
-        ngModel
-        #lastName="ngModel"
-        type="email"
+        formControlName="lastName"
+        type="text"
         class="form-control"
         id="lastName"
-        placeholder="Enter password"
+        placeholder="Enter Last name"
       />
-      <div
-        *ngIf="lastName.touched && lastName.errors"
-        class="text-danger alert alert-danger pt-2"
-      >
-        <div
-          *ngIf="
-            lastName.touched && lastName.errors && lastName.errors.required
-          "
-        >
-        {{errorMessage.required('First Name')}}
-        </div>
-        <div
-          *ngIf="
-            lastName.touched && lastName.errors && lastName.errors.minlength
-          "
-        >
-        {{errorMessage.minLength('First Name', lastName.errors.minlength.requiredLength)}}
-        </div>
-      </div>
     </div>
     <div class="form-group">
       <label for="password">Password</label>
       <input
-        required
-        minlength="3"
-        maxlength="15"
-        name="password"
-        ngModel
-        #password="ngModel"
+        formControlName="password"
         type="password"
         class="form-control"
         id="password"
         placeholder="Enter password"
       />
-      <div class="alert alert-danger pt-2" *ngIf="password.errors && password.touched">
-        <div
-         *ngIf="password.errors.required"
-        >
-        {{errorMessage.required('password')}}
-        </div>
-        <div
-         *ngIf="password.errors.minlength"
-        >
-        {{errorMessage.minLength('password', password.errors.minlength.requiredLength)}}
+    </div>
+    <div class="form-group" formArrayName="hobbies">
+      <button class="btn btn-dark" (click)="addHobby()">Add Hobby</button>
+      <h6>Hobbies</h6>
+      <div *ngFor="let hobby of hobbies.controls; let i=index">
+        <div class="form-group">
+          <label for="password">Hobby</label>
+          <input
+            [formControlName]="i"
+            type="text"
+            class="form-control"
+            id="text"
+            placeholder="Enter hobby"
+          />
         </div>
       </div>
     </div>
-    <div class="form-group py-3">
-      <button class="btn btn-primary float-right">Submit</button>
+    <form formGroupName= "address">
+     <h5 class="text-center">Address</h5>
+     <div class="form-group">
+      <label for="state" class="text-capitalize">state</label>
+      <input
+        formControlName="state"
+        type="text"
+        class="form-control"
+        id="state"
+        placeholder="Enter State"
+      />
+    </div>
+    <div class="form-group">
+      <label for="city" class="text-capitalize">city</label>
+      <input
+        formControlName="city"
+        type="text"
+        class="form-control"
+        id="city"
+        placeholder="Enter city"
+      />
+    </div>
+    <div class="form-group">
+      <label for="street" class="text-capitalize">street</label>
+      <input
+        formControlName="street"
+        type="text"
+        class="form-control"
+        id="street"
+        placeholder="Enter street"
+      />
+    </div>
+    </form>
+    <div class="form-group">
+      <label>
+        Type
+      </label>
+      <div class="custom-control custom-radio">
+        <input
+          formControlName="type"
+          type="radio"
+          class="custom-control-input"
+          id="type"
+          value="A"
+        />
+        <label for="type" class="custom-control-label">A</label>
+      </div>
+      <div class="custom-control custom-radio">
+        <input
+          formControlName="type"
+          type="radio"
+          class="custom-control-input"
+          id="type"
+          value="B"
+        />
+        <label for="type" class="custom-control-label">B</label>
+      </div>
+    </div>
+    <div class="form-group">
+      <button
+        class="btn btn-primary float-right"
+        [disabled]="userProfile.invalid"
+      >
+        Submit
+      </button>
     </div>
   </form>
+  <div class="form-group">
+    <button class="btn btn-primary float-right" (click)="updateForm()">
+      Update Form
+    </button>
+  </div>
 </div>
