@@ -1,118 +1,28 @@
 <div class="card w-90 px-5 py-5">
   <form [formGroup]="userProfile" (ngSubmit)="handleSubmitForm()">
     <div class="form-group">
-      <label for="email">Email address</label>
-      <input
-        formControlName="email"
-        type="email"
+      <label for="doctorName">Doctor</label>
+      <select
+        formControlName="doctorName"
         class="form-control"
-        id="email"
-        placeholder="Enter email"
-      />
+        id="doctorName"
+        (change)="handleDrSelection($event)"
+      >
+      <option value="">Select Doctor</option>
+      <option *ngFor="let doctor of doctorObject" [value]="doctor.name">
+      {{doctor.name}}
+      </option>
+    </select>
     </div>
     <div class="form-group">
-      <label for="firstName">First Name</label>
+      <label for="doctorFees">Doctor Fees</label>
       <input
-        formControlName="firstName"
+        formControlName="doctorFees"
         type="text"
         class="form-control"
-        id="firstName"
-        placeholder="Enter first name"
-      />
-    </div>
-    <div class="form-group">
-      <label for="lastName">Last Name</label>
-      <input
-        formControlName="lastName"
-        type="text"
-        class="form-control"
-        id="lastName"
-        placeholder="Enter Last name"
-      />
-    </div>
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input
-        formControlName="password"
-        type="password"
-        class="form-control"
-        id="password"
-        placeholder="Enter password"
-      />
-    </div>
-    <div class="form-group" formArrayName="hobbies">
-      <button class="btn btn-dark" (click)="addHobby()">Add Hobby</button>
-      <h6>Hobbies</h6>
-      <div *ngFor="let hobby of hobbies.controls; let i=index">
-        <div class="form-group">
-          <label for="password">Hobby</label>
-          <input
-            [formControlName]="i"
-            type="text"
-            class="form-control"
-            id="text"
-            placeholder="Enter hobby"
-          />
-        </div>
-      </div>
-    </div>
-    <form formGroupName= "address">
-     <h5 class="text-center">Address</h5>
-     <div class="form-group">
-      <label for="state" class="text-capitalize">state</label>
-      <input
-        formControlName="state"
-        type="text"
-        class="form-control"
-        id="state"
-        placeholder="Enter State"
-      />
-    </div>
-    <div class="form-group">
-      <label for="city" class="text-capitalize">city</label>
-      <input
-        formControlName="city"
-        type="text"
-        class="form-control"
-        id="city"
-        placeholder="Enter city"
-      />
-    </div>
-    <div class="form-group">
-      <label for="street" class="text-capitalize">street</label>
-      <input
-        formControlName="street"
-        type="text"
-        class="form-control"
-        id="street"
-        placeholder="Enter street"
-      />
-    </div>
-    </form>
-    <div class="form-group">
-      <label>
-        Type
-      </label>
-      <div class="custom-control custom-radio">
-        <input
-          formControlName="type"
-          type="radio"
-          class="custom-control-input"
-          id="type"
-          value="A"
-        />
-        <label for="type" class="custom-control-label">A</label>
-      </div>
-      <div class="custom-control custom-radio">
-        <input
-          formControlName="type"
-          type="radio"
-          class="custom-control-input"
-          id="type"
-          value="B"
-        />
-        <label for="type" class="custom-control-label">B</label>
-      </div>
+        id="doctorFees"
+        placeholder="doctorFees"
+      >
     </div>
     <div class="form-group">
       <button

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormArray } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 
 @Component({
@@ -9,46 +9,38 @@ import { Validators } from '@angular/forms';
 })
 export class BasicFormComponent implements OnInit {
 
-  address: FormGroup = new FormGroup({
-    state: new FormControl(''),
-    city: new FormControl(''),
-    street: new FormControl(''),
-  })
+  doctorObject = [{name:'Jack',fees:1200},{name:'Sparrow',fees:800}];
 
-  userProfile:FormGroup = new FormGroup({
-    email: new FormControl('', Validators.required),
-    firstName: new FormControl(''),
-    lastName: new FormControl(''),
-    password: new FormControl(''),
-    type: new FormControl(''),
-    address: this.address, 
-    hobbies: new FormArray([
-      new FormControl(''),
-    ])
-  })
+  constructor(public formBuidler: FormBuilder) { }
 
-  constructor() { }
+
+  userProfile = this.formBuidler.group({
+    doctorName: this.formBuidler.control({
+      value: '',
+    }),
+    doctorFees: this.formBuidler.control({
+      value: 0,
+      disabled: true,
+    }),
+  })
 
   ngOnInit(): void {
   }
 
-  //Getter for the array control of the form
-  get hobbies(){
-    return this.userProfile.get('hobbies') as FormArray;
-  }
 
-  //Adding new hobbies
-  addHobby(){
-    this.hobbies.push(new FormControl(''));
-  }
-
-
-  handleSubmitForm(){
+  handleSubmitForm() {
     console.log(this.userProfile.value);
-    
+
   }
 
-  updateForm(){
+  handleDrSelection(e:any){
+    let doctorFees = this.doctorObject.find(x => x.name === e.target.value)?.fees;
+    this.userProfile.patchValue({
+      doctorFees: doctorFees,
+    })
+  }
+
+  updateForm() {
     this.userProfile.patchValue({
       firstName: 'Monis',
       email: 'monisms15@gmail.com',
